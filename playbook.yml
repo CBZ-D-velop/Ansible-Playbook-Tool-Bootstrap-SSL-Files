@@ -5,7 +5,6 @@
   remote_user: root
   strategy: free
   become: true
-  become_method: sudo
   become_user: root
 
   tasks:
