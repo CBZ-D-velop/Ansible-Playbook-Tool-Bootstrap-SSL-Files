@@ -8,7 +8,7 @@ driver:
   name: "docker"
 
 platforms:
-  - name: "molecule-local-instance-1-bootstrap-playbook"
+  - name: "molecule-local-instance-1-bootstrap-ssl-files"
     #image: "docker.io/geerlingguy/docker-debian11-ansible"
     image: "local/debian-11-ansible:v3.0"
     #published_ports:

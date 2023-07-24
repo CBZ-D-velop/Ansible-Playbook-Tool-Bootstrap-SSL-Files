@@ -1,4 +1,4 @@
-# Ansible playbook: tool.bootstrap_playbook
+# Ansible playbook: tool.bootstrap_ssl_files
 
 ![Licence Status](https://img.shields.io/badge/licence-MIT-brightgreen)
 ![CI Status](https://img.shields.io/badge/CI-success-brightgreen)
@@ -6,17 +6,32 @@
 ![Testing Driver](https://img.shields.io/badge/Testing%20Driver-docker-blueviolet)
 ![Language Status](https://img.shields.io/badge/language-Ansible-red)
 ![Compagny](https://img.shields.io/badge/Compagny-Labo--CBZ-blue)
-![Author](https://img.shields.io/badge/Author-Lord%20Robin%20Crombez-blue)
+![Author](https://img.shields.io/badge/Author-Lord%20Robin%20Cbz-blue)
 
 ## Description
 
 ![Tag: Ansible](https://img.shields.io/badge/Tech-Ansible-orange)
 ![Tag: Debian](https://img.shields.io/badge/Tech-Debian-orange)
-![Tag: Boilerplate](https://img.shields.io/badge/Tech-Boilerplate-orange)
-![Tag: Bootstrap](https://img.shields.io/badge/Tech-Bootstrap-orange)
-![Tag: Molecule](https://img.shields.io/badge/Tech-Molecule-orange)
+![Tag: OpenSSL](https://img.shields.io/badge/Tech-OpenSSL-orange)
+![Tag: SSL/TLS](https://img.shields.io/badge/Tech-SSL%2FTLS-orange)
+![Tag: KEY](https://img.shields.io/badge/Tech-KEY-orange)
+![Tag: REQ](https://img.shields.io/badge/Tech-REQ-orange)
+![Tag: CSR](https://img.shields.io/badge/Tech-CSR-orange)
+![Tag: CRT](https://img.shields.io/badge/Tech-CRT-orange)
+![Tag: PEM](https://img.shields.io/badge/Tech-PEM-orange)
+![Tag: CA](https://img.shields.io/badge/Tech-CA-orange)
 
-An Ansible playbook to bootstrap and create other playbooks
+An Ansible playbook create a list of defined files related to SSL/TLS
+
+The Certificate Management playbook automates the creation and organization of certificates, including Certificate Authorities (CAs), root CAs, intermediate CAs, and end certificates. This playbook simplifies the process of generating certificates and provides a streamlined approach for managing SSL/TLS infrastructure. Key features of this playbook include:
+
+Certificate Creation: The playbook generates various types of certificates, including root CAs, intermediate CAs, and end certificates. It allows you to define the desired SSL/TLS information, such as Common Name (CN), Country (C), State (ST), Locality (L), Organization (O), Organizational Unit (OU), and email address.
+
+Certificate Filing: The playbook organizes the generated certificates into separate components and creates a ZIP archive for each component. This makes it easy to deploy and distribute the certificates to the desired target systems.
+
+Customization Options: The playbook provides flexibility by allowing you to specify the validity period, key size, and base path for storing the certificate files. You can customize these parameters to meet your specific requirements.
+
+By utilizing the Certificate Management playbook, you can simplify the creation and management of SSL/TLS certificates, ensure proper organization and filing of certificates, and streamline the deployment process.
 
 ## Deployment diagramm
 
@@ -74,13 +89,95 @@ To install this playbook, just copy/import this playbook or raw file into your f
 ```YAML
 # From inventory
 ---
-all vars from to put/from your inventory
+
 ```
 
 ```YAML
 # From AWX / Tower
 ---
-all vars from to put/from AWX / Tower
+# The current user and group to create files
+input_bootstrap_ssl_files_user: "root"
+# The base path on where you want your certs files
+input_bootstrap_ssl_files_base_path: "/tmp/ssl/MyPKI"
+# The validity of your certs files
+input_bootstrap_ssl_files_ca_validity: 3650
+input_bootstrap_ssl_files_cert_validity: 90
+# The size of your key
+input_bootstrap_ssl_files_key_size: 4096
+# Files wanted and where you want them
+
+# SSL/TLS informations
+input_bootstrap_ssl_files_root_ca:
+  cn: "My Local Ansible Root CA"
+  c: "FR"
+  st: "state"
+  l: "city"
+  o: "Local Ansible"
+  ou: "My Local Ansible Root CA"
+  email_address: "contact@your.domain.tld"
+  password: "m3EH3A56h5mNY"
+
+input_bootstrap_ssl_files_intermediates_ca:
+  - cn: "My Local Ansible Intermediate CA 1"
+    c: "FR"
+    st: "state"
+    l: "city"
+    o: "Local Ansible"
+    ou: "My Local Ansible Intermediate CA 1"
+    email_address: "contact@your.domain.tld"
+    password: "m3EH3A56h5mNY"
+    certification_ca: "My Local Ansible Root CA"
+
+  - cn: "My Local Ansible Intermediate CA 2"
+    c: "FR"
+    st: "state"
+    l: "city"
+    o: "Local Ansible"
+    ou: "My Local Ansible Intermediate CA 2"
+    email_address: "contact@your.domain.tld"
+    password: "m3EH3A56*ùph5mNY"
+    certification_ca: "My Local Ansible Intermediate CA 1"
+
+input_bootstrap_ssl_files_end_certs:
+  - cn: "my-end-certificate-1.domain.tld"
+    c: "FR"
+    st: "state"
+    l: "city"
+    o: "Local Ansible"
+    ou: "Local Dev IT"
+    email_address: "contact@your.domain.tld"
+    alternatives:
+      - "127.0.0.1"
+      - "localhost"
+      - "my-website.tld"
+    certification_ca: "My Local Ansible Intermediate CA 1"
+
+  - cn: "my-end-certificate-2.domain.tld"
+    c: "FR"
+    st: "state"
+    l: "city"
+    o: "My Local Intermediate CA Two"
+    ou: "Local Dev IT"
+    email_address: "contact@your.domain.tld"
+    alternatives:
+      - "127.0.0.1"
+      - "localhost"
+      - "my-website.tld"
+    certification_ca: "My Local Ansible Intermediate CA 2"
+
+  - cn: "my-end-certificate-3.domain.tld"
+    c: "FR"
+    st: "state"
+    l: "city"
+    o: "Local Ansible"
+    ou: "Local Dev IT"
+    email_address: "contact@your.domain.tld"
+    alternatives:
+      - "127.0.0.1"
+      - "localhost"
+      - "my-website.tld"
+    certification_ca: "My Local Ansible Intermediate CA 2"
+
 ```
 
 ## Architectural Decisions Records
