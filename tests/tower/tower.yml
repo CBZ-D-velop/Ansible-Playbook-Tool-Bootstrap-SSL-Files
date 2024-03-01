@@ -2,18 +2,18 @@
 #tower_env: "localhost"
 
 # The current user and group to create files
-inv_bootstrap_ssl_files__user: "root"
+input_bootstrap_ssl_files__user: "root"
 # The base path on where you want your certs files
-inv_bootstrap_ssl_files__base_path: "/tmp/ssl/MyPKI"
+input_bootstrap_ssl_files__base_path: "/tmp/ssl/MyPKI"
 # The validity of your certs files
-inv_bootstrap_ssl_files__ca_validity: 3650
-inv_bootstrap_ssl_files__cert_validity: 90
+input_bootstrap_ssl_files__ca_validity: 3650
+input_bootstrap_ssl_files__cert_validity: 90
 # The size of your key
-inv_bootstrap_ssl_files__key_size: 4096
+input_bootstrap_ssl_files__key_size: 4096
 # Files wanted and where you want them
 
 # SSL/TLS informations
-inv_bootstrap_ssl_files__root_ca:
+input_bootstrap_ssl_files__root_ca:
   cn: "My Local Ansible Root CA"
   c: "FR"
   st: "state"
@@ -24,7 +24,7 @@ inv_bootstrap_ssl_files__root_ca:
   password: "m3EH3A56h5mNY"
   ca_password: "m3EH3A56h5mNY"
 
-inv_bootstrap_ssl_files__intermediates_ca:
+input_bootstrap_ssl_files__intermediates_ca:
   - cn: "My Local Ansible Intermediate CA 1"
     c: "FR"
     st: "state"
@@ -47,7 +47,7 @@ inv_bootstrap_ssl_files__intermediates_ca:
     password: "kdidkodkdokldkdokeok"
     certification_ca: "My Local Ansible Intermediate CA 1"
 
-inv_bootstrap_ssl_files__end_certs:
+input_bootstrap_ssl_files__end_certs:
   - cn: "my-end-certificate-1.domain.tld"
     c: "FR"
     st: "state"
