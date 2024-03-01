@@ -10,8 +10,8 @@
     block:
     - name: "Set facts"
       ansible.builtin.set_fact:
-        root_ca_name: "{{ input_bootstrap_ssl_files_root_ca.cn | replace(' ', '-') }}"
-        root_ca_path: "{{ input_bootstrap_ssl_files_base_path }}/{{ input_bootstrap_ssl_files_root_ca.cn | replace(' ', '-') }}"
+        root_ca_name: "{{ input_bootstrap_ssl_files__root_ca.cn | replace(' ', '-') }}"
+        root_ca_path: "{{ input_bootstrap_ssl_files__base_path }}/{{ input_bootstrap_ssl_files__root_ca.cn | replace(' ', '-') }}"
 
     - name: "Verify"
       register: output
@@ -19,14 +19,14 @@
       ansible.builtin.command: "openssl verify -CAfile {{ root_ca_path }}/certs/ca-chain.pem.crt {{ root_ca_path }}/certs/ca-chain.pem.crt"
 
   - name: "Verify Intermediate CA"
-    loop: "{{ input_bootstrap_ssl_files_intermediates_ca }}"
+    loop: "{{ input_bootstrap_ssl_files__intermediates_ca }}"
     loop_control:
       loop_var: intermediate_ca
     ansible.builtin.include_tasks:
       file: "tasks/verify_intermediate_ca.yml"
 
   - name: "Verify Intermediate CA"
-    loop: "{{ input_bootstrap_ssl_files_end_certs }}"
+    loop: "{{ input_bootstrap_ssl_files__end_certs }}"
     loop_control:
       loop_var: certificate
     ansible.builtin.include_tasks:
