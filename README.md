@@ -95,88 +95,6 @@ To install this playbook, just copy/import this playbook or raw file into your f
 ```YAML
 # From AWX / Tower
 ---
-# The current user and group to create files
-input_bootstrap_ssl_files_user: "root"
-# The base path on where you want your certs files
-input_bootstrap_ssl_files_base_path: "/tmp/ssl/MyPKI"
-# The validity of your certs files
-input_bootstrap_ssl_files_ca_validity: 3650
-input_bootstrap_ssl_files_cert_validity: 90
-# The size of your key
-input_bootstrap_ssl_files_key_size: 4096
-# Files wanted and where you want them
-
-# SSL/TLS informations
-input_bootstrap_ssl_files_root_ca:
-  cn: "My Local Ansible Root CA"
-  c: "FR"
-  st: "state"
-  l: "city"
-  o: "Local Ansible"
-  ou: "My Local Ansible Root CA"
-  email_address: "contact@your.domain.tld"
-  password: "m3EH3A56h5mNY"
-
-input_bootstrap_ssl_files_intermediates_ca:
-  - cn: "My Local Ansible Intermediate CA 1"
-    c: "FR"
-    st: "state"
-    l: "city"
-    o: "Local Ansible"
-    ou: "My Local Ansible Intermediate CA 1"
-    email_address: "contact@your.domain.tld"
-    password: "m3EH3A56h5mNY"
-    certification_ca: "My Local Ansible Root CA"
-
-  - cn: "My Local Ansible Intermediate CA 2"
-    c: "FR"
-    st: "state"
-    l: "city"
-    o: "Local Ansible"
-    ou: "My Local Ansible Intermediate CA 2"
-    email_address: "contact@your.domain.tld"
-    password: "m3EH3A56*ùph5mNY"
-    certification_ca: "My Local Ansible Intermediate CA 1"
-
-input_bootstrap_ssl_files_end_certs:
-  - cn: "my-end-certificate-1.domain.tld"
-    c: "FR"
-    st: "state"
-    l: "city"
-    o: "Local Ansible"
-    ou: "Local Dev IT"
-    email_address: "contact@your.domain.tld"
-    alternatives:
-      - "127.0.0.1"
-      - "localhost"
-      - "my-website.tld"
-    certification_ca: "My Local Ansible Intermediate CA 1"
-
-  - cn: "my-end-certificate-2.domain.tld"
-    c: "FR"
-    st: "state"
-    l: "city"
-    o: "My Local Intermediate CA Two"
-    ou: "Local Dev IT"
-    email_address: "contact@your.domain.tld"
-    alternatives:
-      - "127.0.0.1"
-      - "localhost"
-      - "my-website.tld"
-    certification_ca: "My Local Ansible Intermediate CA 2"
-
-  - cn: "my-end-certificate-3.domain.tld"
-    c: "FR"
-    st: "state"
-    l: "city"
-    o: "Local Ansible"
-    ou: "Local Dev IT"
-    email_address: "contact@your.domain.tld"
-    alternatives:
-      - "127.0.0.1"
-      - "localhost"
-      - "my-website.tld"
-    certification_ca: "My Local Ansible Intermediate CA 2"
 
 ```
 
@@ -194,6 +112,13 @@ Here you can put your change to keep a trace of your work and decisions.
 * Molecule now use remote Docker image by Lord Robin Crombez
 * Molecule now use custom Docker image in CI/CD by env vars
 * New CICD with needs and optimization
+
+### 2024-03-01: Remastered
+
+* Imported new CICD
+* Rework global on readme
+* Rename of vars __
+* Latest version if role
 
 ## Authors
 
