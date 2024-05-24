@@ -42,7 +42,6 @@ By utilizing the Certificate Management playbook, you can simplify the creation 
 You have to run multiples tests. *tests with an # are mandatory*
 
 ```MARKDOWN
-# lint
 # syntax
 # converge
 # idempotence
@@ -67,7 +66,6 @@ yamllint -c ./.yamllint .
 ansible-lint --config=./.ansible-lint .
 
 # Execute and test your playbook
-molecule lint
 molecule create
 molecule list
 molecule converge
@@ -118,7 +116,14 @@ Here you can put your change to keep a trace of your work and decisions.
 * Imported new CICD
 * Rework global on readme
 * Rename of vars __
-* Latest version if role
+
+### 2024-05-19: New CI
+
+* Added Markdown lint to the CICD
+* Rework all Docker images
+* Change CICD vars convention
+* New workers
+* Removed all automation based on branch
 
 ## Authors
 
